@@ -131,9 +131,25 @@ near_contract_standards::impl_non_fungible_token_enumeration!(Contract, tokens);
 
 #[near_bindgen]
 impl NonFungibleTokenMetadataProvider for Contract {
+    
     fn nft_metadata(&self) -> NFTContractMetadata {
         self.metadata.get().unwrap()
     }
+
+}
+
+#[near_bindgen]
+impl Contract {
+
+    /*
+    Make a public method for allowing the retrieval
+    of the nft metadata
+    */
+    pub fn get_nft_metadata(&self) -> NFTContractMetadata {
+
+        self.nft_metadata()
+    }
+    
 }
 
 #[cfg(all(test, not(target_arch = "wasm32")))]

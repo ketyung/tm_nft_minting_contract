@@ -119,7 +119,7 @@ impl Contract {
         receiver_id: AccountId,
         token_metadata: TokenMetadata,
     ) -> Token {
-  //      self.tokens.mint(token_id, receiver_id, Some(token_metadata))
+  //    deprecated  self.tokens.mint(token_id, receiver_id, Some(token_metadata))
         self.tokens.internal_mint(token_id, receiver_id, Some(token_metadata))
   
     }

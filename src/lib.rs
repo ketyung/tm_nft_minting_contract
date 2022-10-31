@@ -138,20 +138,6 @@ impl NonFungibleTokenMetadataProvider for Contract {
 
 }
 
-#[near_bindgen]
-impl Contract {
-
-    /*
-    Make a public method for allowing the retrieval
-    of the nft metadata
-    */
-    pub fn get_nft_metadata(&self) -> NFTContractMetadata {
-
-        self.nft_metadata()
-    }
-    
-}
-
 #[cfg(all(test, not(target_arch = "wasm32")))]
 mod tests {
     use near_sdk::test_utils::{accounts, VMContextBuilder};

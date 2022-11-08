@@ -109,7 +109,10 @@ impl Contract {
             allowed_callers : allowed_callers,
         }
     }
+}
 
+#[near_bindgen]
+impl Contract{
     /// Mint a new token with ID=`token_id` belonging to `receiver_id`.
     ///
     /// Since this example implements metadata, it also requires per-token metadata to be provided
@@ -126,18 +129,41 @@ impl Contract {
         self.tokens.internal_mint(token_id, receiver_id, Some(token_metadata))
     }
 
-
     fn is_allowed_caller(&self) {
 
         if self.allowed_callers.is_none() ||
         !self.allowed_callers.clone().unwrap().contains(&env::predecessor_account_id()){
             env::panic_str(format!("{} is NOT authorized caller", env::predecessor_account_id()).as_str());
         }
+    }
+}
+
+
+#[near_bindgen]
+impl Contract{
+
+    pub fn update_contract_metadata(&mut self,name : String, symbol : String,
+        icon : Option<String>, base_uri : Option<String>){
+
+        self.is_allowed_caller();
+      
+        let _metadata =
+        NFTContractMetadata {
+            spec: NFT_METADATA_SPEC.to_string(),
+            name: name,
+            symbol: symbol,
+            icon: icon,
+            base_uri: base_uri,
+            reference: None,
+            reference_hash: None,
+        };
+
+        self.metadata = LazyOption::new(StorageKey::Metadata, Some(&_metadata));
 
     }
 
-
 }
+
 
 near_contract_standards::impl_non_fungible_token_core!(Contract, tokens);
 near_contract_standards::impl_non_fungible_token_approval!(Contract, tokens);

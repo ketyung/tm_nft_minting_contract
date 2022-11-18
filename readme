@@ -1,2 +1,7 @@
 A Modified Version of the NFT minting contract based on
 https://github.com/near-examples/NFT
+
+This contract will be deployed by the users contract when each collection
+of tickets is created 
+
+
